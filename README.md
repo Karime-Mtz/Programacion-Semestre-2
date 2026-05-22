@@ -8,3 +8,5 @@ Tengo entendido que la clase Abstracta es paquete. Todavía no lo vemos en clase
 
 ## Aspectos a considerar
 Hasta ahora el main ha sido creado para comprobar la funcionabilidad del programa, sin embargo falta hacer el menu final a través del cual el usuario podrá interactuar.
+
+El UML ya está corregido.
