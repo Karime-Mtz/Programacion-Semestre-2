@@ -10,9 +10,9 @@ Tengo entendido que la clase Abstracta es paquete. Todavía no lo vemos en clase
 En mi proyecto el polimorfismo está presente en la clase Boda, en el método calcular_costo_boda().
 
 ## Casos que harían que el proyecto deje de funcionar
-1.- La lista de bodas y la lista de invitados tienen un tamaño fijo en el almacenamiento. No se debe rebasar.
-2.- Punteros que accedan a la memoria dinámica y no sean borrados una vez que cumplieron su función, pueden llenar la memoria de basura.
-3.- La función 'cin' es sumamente sensible y si el código no se limpia continuamente puede entrar en un bucle infinito.
+- La lista de bodas y la lista de invitados tienen un tamaño fijo en el almacenamiento. No se debe rebasar.
+- Punteros que accedan a la memoria dinámica y no sean borrados una vez que cumplieron su función, pueden llenar la memoria de basura.
+- La función 'cin' es sumamente sensible y si el código no se limpia continuamente puede entrar en un bucle infinito.
 
 
 ## Aspectos a considerar
