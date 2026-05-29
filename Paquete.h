@@ -12,7 +12,7 @@ class Paquete {
     protected:
         float precio_base;
         bool decoracion;
-        float precio_decoracion = 80000.0; 
+        float precio_decoracion = 60000.0; 
 
     public:
         Paquete();
@@ -21,7 +21,7 @@ class Paquete {
         void set_decoracion(bool d);
         
         // sobreescritura
-        float calcular_precio();
+        virtual float calcular_precio() = 0;
         
 };
 
