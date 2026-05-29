@@ -10,6 +10,7 @@ using namespace std;
 class Boda {
 
     private:
+        string nombre;
         string novia;
         string novio;
         string lugar;
@@ -20,17 +21,17 @@ class Boda {
         int num_invitados;
         int total_personas;
        
-        Basico paquete_basico;
-        Premium paquete_premium;
+        Paquete* paquete;
         int tipo_paquete; 
         // 1 = Basico, 2 = Premium, 0 = No tiene paquete
 
     public:
         Boda();
         // Constructor para cada tipo de paquete
-        Boda(string bride, string groom, string place, string date, float cost, Basico paq);
-        Boda(string bride, string groom, string place, string date, float cost, Premium paq);
+        Boda(string bride, string groom, string place, string date, float cost, Basico &paq);
+        Boda(string bride, string groom, string place, string date, float cost, Premium &paq);
 
+        string get_nombre();
         string get_novia();
         string get_novio();
         string get_lugar();
@@ -39,8 +40,7 @@ class Boda {
         int get_num_invitados();
         int get_total_personas();
 
-        Basico get_paquete_basico();
-        Premium get_paquete_premium();
+        Paquete* get_paquete();
         int get_tipo_paquete();
 
         void set_novia(string bride);
@@ -49,15 +49,17 @@ class Boda {
         void set_fecha(string date);
         void set_presupuesto(float cost);
 
-        void set_paquete_basico(Basico paq);
-        void set_paquete_premium(Premium paq);
+        void set_paquete(Basico &paq);
+        void set_paquete(Premium &paq);
 
+        string mostrar_detalles();
         string mostrar_invitados();
         void agregar_invitado(string name, bool acomp);
         float calcular_costo_boda();
 };
 
 Boda::Boda(){
+    nombre = "";
     novia = "";
     novio = "";
     lugar = "";
@@ -68,18 +70,20 @@ Boda::Boda(){
     tipo_paquete = 0;
 }
 
-Boda::Boda(string bride, string groom, string place, string date, float cost, Basico paq) {
+Boda::Boda(string bride, string groom, string place, string date, float cost, Basico &paq) {
+    nombre = bride + "_" + groom;
     novia = bride;
     novio = groom;    lugar = place;
     fecha = date;
     presupuesto = cost;
     num_invitados = 0;
     total_personas = 0;
-    paquete_basico = paq;
+    paquete = &paq;
     tipo_paquete = 1;
 }
 
-Boda::Boda(string bride, string groom, string place, string date, float cost, Premium paq) {
+Boda::Boda(string bride, string groom, string place, string date, float cost, Premium &paq) {
+    nombre = bride + "_" + groom;
     novia = bride;
     novio = groom;
     lugar = place;
@@ -87,8 +91,18 @@ Boda::Boda(string bride, string groom, string place, string date, float cost, Pr
     presupuesto = cost;
     num_invitados = 0;
     total_personas = 0;
-    paquete_premium = paq;
+    paquete = &paq;
     tipo_paquete = 2;
+}
+
+string Boda::get_nombre() {
+    string n_novia = novia;
+    string n_novio = novio;
+
+    for (char &c : n_novia) c = tolower(c);
+    for (char &c : n_novio) c = tolower(c);
+    
+    return n_novia + "_" + n_novio;
 }
 
 string Boda::get_novia(){
@@ -119,12 +133,8 @@ int Boda::get_total_personas(){
     return total_personas;
 }
 
-Basico Boda::get_paquete_basico() { 
-    return paquete_basico; 
-}
-
-Premium Boda::get_paquete_premium() { 
-    return paquete_premium; 
+Paquete* Boda::get_paquete() { 
+    return paquete; 
 }
 
 int Boda::get_tipo_paquete() { 
@@ -133,10 +143,12 @@ int Boda::get_tipo_paquete() {
 
 void Boda::set_novia(string bride){
     novia = bride;
+    nombre = novia + "_" + novio;
 }
 
 void Boda::set_novio(string groom){
     novio = groom;
+    nombre = novia + "_" + novio;
 }
 
 void Boda::set_lugar(string place){
@@ -151,31 +163,53 @@ void Boda::set_presupuesto(float cost){
     presupuesto = cost;
 }
 
-void Boda::set_paquete_basico(Basico paq) {
-    paquete_basico = paq;
+void Boda::set_paquete(Basico &paq) {
+    paquete = &paq;
     tipo_paquete = 1;
 }
 
-void Boda::set_paquete_premium(Premium paq) {
-    paquete_premium = paq;
+void Boda::set_paquete(Premium &paq) {
+    paquete = &paq;
     tipo_paquete = 2;
+}
+
+string Boda::mostrar_detalles(){
+    stringstream detalles;
+    detalles << "\nNovia: " << novia << endl;
+    detalles << "Novio: " << novio << endl;
+    detalles << "Fecha: " << fecha << endl;
+    detalles << "Lugar: " << lugar << endl;
+    detalles << "Presupuesto: " << presupuesto << endl;
+
+    if (tipo_paquete == 1){
+        detalles << "Paquete: Basico" << endl;
+    } else {
+        detalles << "Paquete: Premium" << endl;
+    }
+    return detalles.str();
 }
 
 string Boda::mostrar_invitados(){
     stringstream invitados;
-    for (int i = 0; i < num_invitados; i++) {
-        invitados << "Invitado " << i+1 << ": " << lista_invitados[i].get_nombre();
-        if (lista_invitados[i].get_plus_one()) {
-            invitados << " + 1";
+    if (num_invitados == 0){
+        invitados << "\nTodavia no hay invitados registrados" << endl;
+    } else{
+        for (int i = 0; i < num_invitados; i++) {
+            invitados << "Invitado " << i+1 << ": " << lista_invitados[i].get_nombre();
+            if (lista_invitados[i].get_plus_one()) {
+                invitados << " + 1";
+            }
+            invitados << endl;
+            invitados << "Numero de invitados registrados: " << get_num_invitados() << endl;
+            invitados << "Numero total de personas: " << get_total_personas() << endl;
         }
-        invitados << endl;
     }
     return invitados.str();
 }
 
 void Boda::agregar_invitado(string name, bool acomp){
     if (num_invitados >= 500) {
-        cout << "Límite de invitados alcanzado para esta boda." << endl;
+        cout << "\nLímite de invitados alcanzado para esta boda." << endl;
     } else {
         lista_invitados[num_invitados] = Invitado(name, acomp);
         num_invitados++;
@@ -190,9 +224,9 @@ void Boda::agregar_invitado(string name, bool acomp){
 
 float Boda::calcular_costo_boda() {
     if (tipo_paquete == 1) {
-        return paquete_basico.calcular_precio();
+        return paquete -> calcular_precio();
     } else if (tipo_paquete == 2) {
-        return paquete_premium.calcular_precio();
+        return paquete -> calcular_precio();
     } else {
     return 0.0; 
     }
