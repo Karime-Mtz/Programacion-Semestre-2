@@ -16,15 +16,29 @@ char menu(){
 
     // Imprime las opciones que se pueden realizar en el programa
     cout << "\nElige una de las siguientes opciones "
-        "(a/b/c/d/e/f/g):" 
+        "(a/b/c/d):" 
      << endl;
     cout << "a) Mostrar todas las bodas" << endl;
     cout << "b) Registrar nueva boda" << endl;
     cout << "c) Consultar informacion de una boda" << endl;
-    cout << "d) Mostrar lista de invitados" << endl;
-    cout << "e) Agregar invitado" << endl;
-    cout << "f) Cotizar boda" << endl;
-    cout << "g) Salir\n" << endl;
+    cout << "d) Salir\n" << endl;
+
+    char opcion;
+    // Lee la opcion que ha sido seleccionada
+    cin >> opcion;
+    cin.ignore();    
+    return opcion;
+}
+
+char menu2() {
+    // Imprime las opciones que se pueden realizar en el programa
+    cout << "\n¿Que te gustaria realizar? "
+        "(a/b/c/d):" 
+     << endl;
+    cout << "a) Mostrar lista de invitados" << endl;
+    cout << "b) Agregar invitado" << endl;
+    cout << "c) Cotizar boda" << endl;
+    cout << "d) Regresar\n" << endl;
 
     char opcion;
     // Lee la opcion que ha sido seleccionada
@@ -34,6 +48,7 @@ char menu(){
 }
 
 string a_minusculas(string s) {
+    // c es una referencia del caracter actual de s
     for (char &c : s) {
         c = tolower(c);
     }
@@ -57,14 +72,14 @@ int posicion_boda(Empresa &empresa, string novia, string novio) {
 
 int elegir_paquete() {
     int tipo;
-    cout << "¿Qué paquete te gustaría? (1/2)\n"
+    cout << "¿Que paquete te gustaria? (1/2)\n"
     "1.- Basico\n2.- Premium\n";
 
     while (!(cin >> tipo) || tipo < 1 || tipo > 2) {
         cout << "Respuesta no valida. Elige un numero del 1 al 2\n";
         cin.clear();
         cin.ignore(10000, '\n');
-        cout << "¿Qué paquete te gustaría? (1/2)\n"
+        cout << "¿Que paquete te gustaria? (1/2)\n"
     "1.- Basico\n2.- Premium\n";
     }
     cin.ignore();
@@ -158,6 +173,7 @@ void consultar_info(Empresa &empresa, int position){
     if (position == -1) {
         cout << "No se encontro la boda" << endl;
     } else {
+        // Imprime los datos usando el método del objeto libro
         cout << empresa.get_boda(position).mostrar_detalles();
     }
 }
@@ -244,7 +260,7 @@ while (true) {
         // Ejecuta las funciones de acuerdo a la opcion elegida
         switch (choice) {
             case 'a': {
-                cout << QroWeddings.mostrar_bodas();
+                cout << QroWeddings.mostrar_bodas() << endl;
                 break;
             }
 
@@ -260,28 +276,43 @@ while (true) {
             case 'c': {
                 int position = buscar_boda(QroWeddings);
                 consultar_info(QroWeddings, position);
+
+                if (position == -1) {
+                    break;
+                } else {
+                    
+                    bool submenu = true;
+                    while (submenu) {
+                        char choice2 = menu2();
+                        switch (choice2) {
+                            case 'a' : {
+                                mostrar_invitados(QroWeddings, position);
+                                break;
+                            }
+                            case 'b': {
+                                agregar_invitado(QroWeddings, position);
+                                break; 
+                            }
+
+                            case 'c' : {
+                                cotizar(QroWeddings, position);
+                                break;
+                            }
+
+                            case 'd': {
+                                cout << "Regresando al menu principal..." << endl;
+                                submenu = false;
+                                break;
+                            }
+                            default : 
+                                cout << "Opcion invalida" << endl;
+                        }
+                    }
+                }
                 break;
             }
 
             case 'd': {
-                int position = buscar_boda(QroWeddings);
-                mostrar_invitados(QroWeddings, position);
-                break;
-            }
-
-            case 'e': {
-                int position = buscar_boda(QroWeddings);
-                agregar_invitado(QroWeddings, position);
-                break;    
-            }
-
-            case 'f': {
-                int position = buscar_boda(QroWeddings);
-                cotizar(QroWeddings, position);
-                break;
-            }
-
-            case 'g': {
                 cout << "¡Hasta luego!" << endl;
                 return 0;
             }
