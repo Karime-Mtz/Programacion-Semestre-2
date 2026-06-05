@@ -200,15 +200,15 @@ string Boda::mostrar_invitados(){
                 invitados << " + 1";
             }
             invitados << endl;
-            invitados << "Numero de invitados registrados: " << get_num_invitados() << endl;
-            invitados << "Numero total de personas: " << get_total_personas() << endl;
         }
+        invitados << "\nNumero de invitados registrados: " << get_num_invitados() << endl;
+        invitados << "Numero total de personas: " << get_total_personas() << endl;
     }
     return invitados.str();
 }
 
 void Boda::agregar_invitado(string name, bool acomp){
-    if (num_invitados >= 500) {
+    if (num_invitados >= 100) {
         cout << "\nLímite de invitados alcanzado para esta boda." << endl;
     } else {
         lista_invitados[num_invitados] = Invitado(name, acomp);
