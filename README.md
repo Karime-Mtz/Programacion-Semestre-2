@@ -1,10 +1,21 @@
 # Programacion-Semestre-2
 
 ## Contexto
-Una empresa que se dedica a organizar bodas necesita un programa que la ayude a llevar una buena administración de estos eventos. Este sistema lleva un registro de las bodas, al igual del lugar y fecha en el que se llevan a cabo. También permite asignar el paquete deseado que quieren los clientes y registrar que servicios les gustaría y también si hay algún cambio.
+Una empresa que se dedica a organizar bodas necesita un programa que la ayude a llevar una buena administración de estos eventos. Este sistema lleva un registro de las bodas a través de un menu. Incluye la administración del nombre de los novios, el lugar en el que se llevará a cabo y la fecha. 
+#### Menu:
+* a) Mostrar todas las bodas
+* b) Registrar nueva boda
+* c) Consultar informacion de una boda
+
+También permite manejar las bodas de manera individual. Se le brinda la opción al usuario de checar la lista de invitados, agregar nuevos, al igual que cotizar el evento.
+#### Submenu:
+* a) Mostrar lista de invitados
+* b) Agregar invitado
+* c) Cotizar boda
 
 ## Clase Abstracta
-Tengo entendido que la clase Abstracta es paquete. Todavía no lo vemos en clase
+La clase abstracta es Paquete, ya que el programa solo permite crear objetos de sus clases 'hijas': Basico y Premium.
+Se declaró abastracta por medio del método calcular_precio(), el cual se sobreescribe en las clases hereditarias.
 
 ## Polimorfismo
 En mi proyecto el polimorfismo está presente en la clase Boda, en el método calcular_costo_boda().
@@ -16,6 +27,4 @@ En mi proyecto el polimorfismo está presente en la clase Boda, en el método ca
 
 
 ## Aspectos a considerar
-Hasta ahora el main ha sido creado para comprobar la funcionabilidad del programa, sin embargo falta hacer el menu final a través del cual el usuario podrá interactuar.
-
 El UML ya está corregido.
