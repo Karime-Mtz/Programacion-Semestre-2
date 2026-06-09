@@ -198,7 +198,7 @@ void agregar_invitado(Empresa &empresa, int position){
     cout << "\nNombre del invitado: ";
     getline(cin, invitado);
 
-    cout << "¿Tiene acompañante? (1/2)" << endl;
+    cout << "¿Tiene acompanante? (1/2)" << endl;
     cout << "1.- Si" << endl;
     cout << "2.- No" << endl;
 
@@ -242,12 +242,12 @@ Empresa QroWeddings("Qro Weddings");
 // Creación de paquetes
 Basico PaqueteBodaLago(30000, true, true, true);
 Basico PaqueteSalon(30000, true, false, true);
-Premium PaqueteBodaViñedo(30000, true, true, false, true);
+Premium PaqueteBodaVinedo(30000, true, true, false, true);
 
 // Creación de Bodas
 Boda Isabela_Esteban("Isabela","Esteban", "Lago de las Canadas", "15/07/2023", 180000.0, PaqueteBodaLago);
 Boda Erica_Juan("Erica", "Juan Pablo", "Salon Tulipanes", "01/02/2021", 165000.0, PaqueteSalon);
-Boda Aurora_Mauricio("Aurora", "Mauricio", "Vinedo del norte", "25/11/2023", 230000.0, PaqueteBodaViñedo);
+Boda Aurora_Mauricio("Aurora", "Mauricio", "Vinedo del norte", "25/11/2023", 230000.0, PaqueteBodaVinedo);
 
 QroWeddings.agregar_boda(Isabela_Esteban);
 QroWeddings.agregar_boda(Erica_Juan);
