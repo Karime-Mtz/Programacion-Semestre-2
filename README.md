@@ -25,6 +25,7 @@ En mi proyecto el polimorfismo está presente en la clase Boda, en el método ca
 - Punteros que accedan a la memoria dinámica y no sean borrados una vez que cumplieron su función, pueden llenar la memoria de basura.
 - La función 'cin' es sumamente sensible y si el código no se limpia continuamente puede entrar en un bucle infinito.
 
+## Instrucciones
+Compilar con: `g++ Main.cpp -o main`
 
-## Aspectos a considerar
-El UML ya está corregido.
+Correr en windows: `.\/main.exe`
