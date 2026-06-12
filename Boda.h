@@ -46,9 +46,7 @@ class Boda {
 
         //Sobrecarga de constructores
         Boda();
-        // Constructor para cada tipo de paquete
-        Boda(string bride, string groom, string place, string date, float cost, Basico &paq);
-        Boda(string bride, string groom, string place, string date, float cost, Premium &paq);
+        Boda(string bride, string groom, string place, string date, float cost, Paquete* pq);
 
         string get_nombre();
         string get_novia();
@@ -100,11 +98,11 @@ Boda::Boda(){
  * Constructor que recibe valores para llenar las variables de instancia
  *
  * @param string bride: nombre de la novia, string groom: nombre del novio, 
- * string place: lugar, string date: fecha, float cost: costo, Basico &paq: 
- * referencia de un paquete tipo Basico que ya existe
+ * string place: lugar, string date: fecha, float cost: costo, Paquete* pq: 
+ * apuntador tipo paquete
  * @return objeto Boda
  */
-Boda::Boda(string bride, string groom, string place, string date, float cost, Basico &paq) {
+Boda::Boda(string bride, string groom, string place, string date, float cost, Paquete* pq) {
     nombre = bride + "_" + groom;
     novia = bride;
     novio = groom;    lugar = place;
@@ -112,29 +110,8 @@ Boda::Boda(string bride, string groom, string place, string date, float cost, Ba
     presupuesto = cost;
     num_invitados = 0;
     total_personas = 0;
-    paquete = &paq;
+    paquete = pq;
     tipo_paquete = 1;
-}
-
-/**
- * Constructor que recibe valores para llenar las variables de instancia
- *
- * @param string bride: nombre de la novia, string groom: nombre del novio, 
- * string place: lugar, string date: fecha, float cost: costo, Premium &paq: 
- * referencia de un paquete tipo Premium que ya existe
- * @return objeto Boda
- */
-Boda::Boda(string bride, string groom, string place, string date, float cost, Premium &paq) {
-    nombre = bride + "_" + groom;
-    novia = bride;
-    novio = groom;
-    lugar = place;
-    fecha = date;
-    presupuesto = cost;
-    num_invitados = 0;
-    total_personas = 0;
-    paquete = &paq;
-    tipo_paquete = 2;
 }
 
 /**
