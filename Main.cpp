@@ -199,9 +199,6 @@ Premium crear_paquete_premium(){
 Boda crear_boda(int tipo) {
     string novia, novio, fecha, lugar;
     float presupuesto;
-    Boda boda_creada;
-    Basico paqueteB;
-    Premium paqueteP;
 
     cout << "Nombre de la novia: " << endl;
     getline(cin, novia);
@@ -213,15 +210,17 @@ Boda crear_boda(int tipo) {
     getline(cin, fecha);
     cout << "Presupuesto: " << endl;
     cin >> presupuesto;
+    cin.ignore(); // Limpiamos el buffer del presupuesto
 
     if (tipo == 1){
-        paqueteB = crear_paquete_basico();
-        boda_creada = Boda(novia, novio, lugar, fecha, presupuesto, paqueteB);
+        // Creamos el objeto en el heap
+        Basico* paqueteB = new Basico(crear_paquete_basico());
+        return Boda(novia, novio, lugar, fecha, presupuesto, paqueteB);
     } else {
-        paqueteP = crear_paquete_premium();
-        boda_creada = Boda(novia, novio, lugar, fecha, presupuesto, paqueteP);
+        // Creamos el objeto en el heap
+        Premium* paqueteP = new Premium(crear_paquete_premium());
+        return Boda(novia, novio, lugar, fecha, presupuesto, paqueteP);
     }
-    return boda_creada;
 }
 
 /**
@@ -340,15 +339,15 @@ int main() {
 // Creación de empresa
 Empresa QroWeddings("Qro Weddings");
 
-// Creación de paquetes
-Basico PaqueteBodaLago(30000, true, true, true);
-Basico PaqueteSalon(30000, true, false, true);
-Premium PaqueteBodaVinedo(30000, true, true, false, true);
+// Creación de los apuntadores a los paquetes en memoria heap
+Basico* paqueteLago = new Basico(30000, true, true, true);
+Basico* paqueteSalon = new Basico(30000, true, false, true);
+Premium* paqueteVinedo = new Premium(30000, true, true, false, true);
 
-// Creación de Bodas
-Boda Isabela_Esteban("Isabela","Esteban", "Lago de las Canadas", "15/07/2023", 180000.0, PaqueteBodaLago);
-Boda Erica_Juan("Erica", "Juan Pablo", "Salon Tulipanes", "01/02/2021", 165000.0, PaqueteSalon);
-Boda Aurora_Mauricio("Aurora", "Mauricio", "Vinedo del norte", "25/11/2023", 230000.0, PaqueteBodaVinedo);
+// Creación de las Bodas
+Boda Isabela_Esteban("Isabela", "Esteban", "Lago de las Canadas", "15/07/2023", 180000.0, paqueteLago);
+Boda Erica_Juan("Erica", "Juan Pablo", "Salon Tulipanes", "01/02/2021", 165000.0, paqueteSalon);
+Boda Aurora_Mauricio("Aurora", "Mauricio", "Vinedo del norte", "25/11/2023", 230000.0, paqueteVinedo);
 
 // Agregar las bodas al catálogo de la empresa
 QroWeddings.agregar_boda(Isabela_Esteban);
